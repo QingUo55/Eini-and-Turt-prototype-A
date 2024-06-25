@@ -19,7 +19,6 @@ public class GameAssets : MonoBehaviour
     //GameObjects List
     public Sprite DoorOpen;
     public Sprite DoorClose;
-    public Sprite Boob;
 
     private static GameAssets instance;
 

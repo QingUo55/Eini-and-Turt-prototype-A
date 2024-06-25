@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] TextMeshProUGUI stateDebug;
     public PlayerState PlayerState;
     private Rigidbody2D rb;
-    private CapsuleCollider2D col;
+    private BoxCollider2D col;
     private FakeAnimator fakeAnimator;
     private boxEffector connectedBox;
     [SerializeField] public float moveX;
@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Parameters();
         rb = GetComponent<Rigidbody2D>();
-        col = GetComponent<CapsuleCollider2D>(); 
+        col = GetComponent<BoxCollider2D>(); 
         
         fakeAnimator = GetComponent<FakeAnimator>();
         InputHandler.Instance.OnMovementReleased += stopMovement;
@@ -94,17 +94,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector3(moveX, moveY);
+        rb.velocity = new Vector2(moveX, moveY);
     }
 
     public virtual void Parameters()
     {
-        groundDistance = 0.1f;
+        groundDistance = 0.4f;
         sprintSpeed = 10f;
         maxSpeed = 10f;
         acceleration = 10f;
         deceleration = 10f;
-        gravityValue = 18f;
+        gravityValue = 31f;
         maxJumpSpeed = 15f;
         jumpSpeed = 20f;
         jumpAcceleration = 45f;
@@ -122,8 +122,9 @@ public class PlayerMovement : MonoBehaviour
 
     public virtual bool CheckGround()
     {
-        RaycastHit2D hit = Physics2D.Raycast(new Vector3(col.bounds.center.x, (col.bounds.center.y - col.size.y / 2) - 0.1f), Vector3.down, groundDistance);
-        Debug.DrawRay(new Vector3(col.bounds.center.x, (col.bounds.center.y - col.size.y / 2) - 0.1f), Vector3.down, Color.green);
+        //RaycastHit2D hit = Physics2D.BoxCast(col.bounds.center, col.bounds.size, 0f, Vector2.down, groundDistance);
+        RaycastHit2D hit = Physics2D.Raycast(new Vector3(col.bounds.center.x, (col.bounds.center.y - col.size.y / 2) - 0.1f), Vector2.down, groundDistance);
+        Debug.DrawRay(new Vector3(col.bounds.center.x, (col.bounds.center.y - col.size.y / 2) - 0.1f), Vector2.down, Color.green);
 
         if (hit)
         {
@@ -184,14 +185,22 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                moveX = Input.GetAxisRaw("Horizontal") * maxSpeed;
+                //old
+                //moveX = Input.GetAxisRaw("Horizontal") * maxSpeed;
+                //new
+                moveX = 0;
             }
         }
+        else
+        {
+            moveX = 0;
+        }
 
-        if (deceleration == 0)
+        //old
+       /* if (deceleration == 0)
         {
             moveX = Input.GetAxisRaw("Horizontal") * maxSpeed;
-        }
+        }*/
     }
 
     public virtual void Jump()
@@ -222,7 +231,7 @@ public class PlayerMovement : MonoBehaviour
 
     public virtual void Falling()
     {
-        if (PlayerState == PlayerState.Jumping)
+        if (PlayerState == PlayerState.Jumping || PlayerState == PlayerState.OnJump)
         {     
             if (moveY < maxJumpSpeed)
             {
