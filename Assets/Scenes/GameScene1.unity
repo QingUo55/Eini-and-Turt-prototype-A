@@ -804,7 +804,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee,
+    type: 3}
   m_Color: {r: 0.25, g: 1, b: 0.31570446, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1451,7 +1452,7 @@ Transform:
   m_GameObject: {fileID: 657401550}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 30.07, y: -8.98, z: -0.16707866}
+  m_LocalPosition: {x: 30.07, y: -9.023, z: -0.16707866}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2450,7 +2451,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1622448968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2557,7 +2558,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.81086254}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2568,7 +2569,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 2.621726}
   m_EdgeRadius: 0
 --- !u!1 &1650017255
 GameObject:
@@ -2923,7 +2924,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1931811976
 Transform:
   m_ObjectHideFlags: 0
@@ -3049,7 +3050,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.4393232}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -3060,7 +3061,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 1.8786464}
   m_EdgeRadius: 0
 --- !u!1 &1954458926
 GameObject:
@@ -3179,7 +3180,8 @@ MonoBehaviour:
   WalkAnimation: {fileID: 11400000, guid: c1664c7427fc6364f8f1c697dcbfafdd, type: 2}
   JumpedAnimation: {fileID: 11400000, guid: ad9b7b82ce66e2c41ba8093552d93f47, type: 2}
   FallAnimation: {fileID: 11400000, guid: 27c9561925d2091449c21eede7d98c5d, type: 2}
-  VFX_Jump: {fileID: 5899734842813359911, guid: dece6e35933299c4297869b3d49731d0, type: 3}
+  VFX_Jump: {fileID: 5899734842813359911, guid: dece6e35933299c4297869b3d49731d0,
+    type: 3}
   DoorOpen: {fileID: -1414214144, guid: 8c3a7f61d92cbd449bfe6619727fe88c, type: 3}
   DoorClose: {fileID: -266647653, guid: 8c3a7f61d92cbd449bfe6619727fe88c, type: 3}
 --- !u!4 &2057105828
@@ -3395,7 +3397,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
+    type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0

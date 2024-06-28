@@ -22,7 +22,7 @@ public class EiniControl : PlayerMovement
 
     public override void Gravity()
     {
-        if (GameHandler.Instance.ActiveCharacter == Character.Turt)
+        if (GameHandler.Instance.ActiveCharacter != Character.Eini)
         {
             return;
         }
@@ -31,7 +31,7 @@ public class EiniControl : PlayerMovement
 
     public override void GroundedMovement(float direction)
     {
-        if (GameHandler.Instance.ActiveCharacter == Character.Turt)
+        if (GameHandler.Instance.ActiveCharacter != Character.Eini)
         {
             return;
         }
@@ -40,7 +40,7 @@ public class EiniControl : PlayerMovement
 
     public override void Falling()
     {
-        if (GameHandler.Instance.ActiveCharacter == Character.Turt)
+        if (GameHandler.Instance.ActiveCharacter != Character.Eini)
         {
             return;
         }
@@ -49,7 +49,7 @@ public class EiniControl : PlayerMovement
 
     public override void Jump()
     {
-        if (GameHandler.Instance.ActiveCharacter == Character.Turt)
+        if (GameHandler.Instance.ActiveCharacter != Character.Eini)
         {
             return;
         }
@@ -58,7 +58,7 @@ public class EiniControl : PlayerMovement
 
     public override void stopMovement(float direction)
     {
-        if (GameHandler.Instance.ActiveCharacter == Character.Turt)
+        if (GameHandler.Instance.ActiveCharacter != Character.Eini)
         {
             return;
         }

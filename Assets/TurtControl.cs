@@ -6,7 +6,7 @@ public class TurtControl : PlayerMovement
 {
     public override void Parameters()
     {
-        if (GameHandler.Instance.ActiveCharacter == Character.Eini)
+        if (GameHandler.Instance.ActiveCharacter != Character.Turt)
         {
             return;
         }
@@ -15,7 +15,7 @@ public class TurtControl : PlayerMovement
 
     public override void Gravity()
     {
-        if (GameHandler.Instance.ActiveCharacter == Character.Eini)
+        if (GameHandler.Instance.ActiveCharacter != Character.Turt)
         {
             return;
         }
@@ -24,7 +24,7 @@ public class TurtControl : PlayerMovement
 
     public override void GroundedMovement(float direction)
     {
-        if(GameHandler.Instance.ActiveCharacter == Character.Eini)
+        if(GameHandler.Instance.ActiveCharacter != Character.Turt)
         {
             return;
         }
@@ -33,7 +33,7 @@ public class TurtControl : PlayerMovement
 
     public override void Falling()
     {
-        if (GameHandler.Instance.ActiveCharacter == Character.Eini)
+        if (GameHandler.Instance.ActiveCharacter != Character.Turt)
         {
             return;
         }
@@ -42,7 +42,7 @@ public class TurtControl : PlayerMovement
 
     public override void Jump()
     {
-        if (GameHandler.Instance.ActiveCharacter == Character.Eini)
+        if (GameHandler.Instance.ActiveCharacter != Character.Turt)
         {
             return;
         }
@@ -51,7 +51,7 @@ public class TurtControl : PlayerMovement
 
     public override void stopMovement(float direction)
     {
-        if (GameHandler.Instance.ActiveCharacter == Character.Eini)
+        if (GameHandler.Instance.ActiveCharacter != Character.Turt)
         {
             return;
         }

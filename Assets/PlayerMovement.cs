@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using System;
 using TMPro;
-using UnityEngine.UIElements;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Parameters")]
@@ -103,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
         sprintSpeed = 10f;
         maxSpeed = 10f;
         acceleration = 10f;
-        deceleration = 10f;
+        deceleration = 1f;
         gravityValue = 31f;
         maxJumpSpeed = 15f;
         jumpSpeed = 20f;
@@ -128,6 +126,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (hit)
         {
+            if (hit.collider.GetComponent<npc1>() != null || hit.collider.GetComponent<npc2>() != null)
+            {
+                return false;
+            }
             if (PlayerState != PlayerState.OnJump)
             {
                 if (PlayerState != PlayerState.Floor)
@@ -138,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
             }
             return true;
         }
-        else
+        else 
         {
             return false;
         }
@@ -196,11 +198,10 @@ public class PlayerMovement : MonoBehaviour
             moveX = 0;
         }
 
-        //old
-       /* if (deceleration == 0)
+        if (deceleration == 0)
         {
-            moveX = Input.GetAxisRaw("Horizontal") * maxSpeed;
-        }*/
+            moveX = 0;
+        }
     }
 
     public virtual void Jump()
@@ -211,7 +212,7 @@ public class PlayerMovement : MonoBehaviour
             VFXManager.Instance.PlayVFX_Jump(col);
             EiniAnimationHandler.Instance.PlayJumpAnimation();
             moveY = jumpSpeed;
-            OnJumpTimer = 0.2f;
+            OnJumpTimer = 0.15f;
             onJumpPosition = rb.position;
         }
     }
@@ -231,43 +232,53 @@ public class PlayerMovement : MonoBehaviour
 
     public virtual void Falling()
     {
-        if (PlayerState == PlayerState.Jumping || PlayerState == PlayerState.OnJump)
-        {     
-            if (moveY < maxJumpSpeed)
-            {
-                moveY += jumpAcceleration;
-            }
-            else
-            {
-                moveY = maxJumpSpeed;
-            }     
-        }
-
-        if (rb.position.y > onJumpPosition.y + jumpHeigth)
+        //check if the player is jumping or falling
+        if (PlayerState == PlayerState.Jumping || PlayerState == PlayerState.Falling)
         {
-            if (PlayerState == PlayerState.Jumping)
+            //apply gravity
+            moveY -= gravityValue * Time.deltaTime;
+
+            //check for maximum fall speed
+            if (moveY < -maxJumpSpeed)
             {
+                moveY = -maxJumpSpeed;
+            }
+
+            //check if player reached jump peak
+            if (PlayerState == PlayerState.Jumping && rb.position.y > onJumpPosition.y + jumpHeigth)
+            {
+                PlayerState = PlayerState.JumpPeak;
                 OnJumpPeakTimer = airTime;
             }
-            PlayerState = PlayerState.JumpPeak;
-        }
 
-        if (PlayerState == PlayerState.JumpPeak)
-        {
-            EiniAnimationHandler.Instance.PlayFallAnimation();
-            moveY = 0;
-            OnJumpPeakTimer -= Time.deltaTime;
-            if (OnJumpPeakTimer <= 0)
+            //handle falling state
+            if (PlayerState == PlayerState.JumpPeak)
             {
-                PlayerState = PlayerState.Falling;
+                EiniAnimationHandler.Instance.PlayFallAnimation();
+                moveY = 0;
+                OnJumpPeakTimer -= Time.deltaTime;
+                if (OnJumpPeakTimer <= 0)
+                {
+                    PlayerState = PlayerState.Falling;
+                }
             }
-        }
 
-        if (PlayerState == PlayerState.Falling)
-        {
-            
-            moveY = -gravityValue;
-        }
+
+            //falling state
+            if (PlayerState == PlayerState.Falling)
+            {
+                moveY = -gravityValue;
+                if (!CheckGround())
+                {
+                    EiniAnimationHandler.Instance.PlayFallAnimation();
+                }
+                else
+                {
+                    PlayerState = PlayerState.Floor;
+                    moveY = 0;
+                }
+            }    
+        } 
     }
 
     public void Push()
@@ -278,18 +289,26 @@ public class PlayerMovement : MonoBehaviour
             if(PlayerState == PlayerState.pushing)
             {
                 Debug.Log("Triggered");
-                //maxSpeed = maxSpeed / 2;
-                RaycastHit2D rightRayHit = Physics2D.Raycast(new Vector3(col.bounds.max.x + 0.1f, col.bounds.center.y), Vector3.right, 0.5f);
+                RaycastHit2D rightRayHit = Physics2D.Raycast(new Vector2(col.bounds.max.x + 0.1f, col.bounds.center.y), Vector2.right, 0.5f);
+                RaycastHit2D leftRayHit = Physics2D.Raycast(new Vector2(col.bounds.min.x - 0.1f, col.bounds.center.y), Vector2.left, 0.5f);
 
-                Debug.DrawRay(new Vector3(col.bounds.max.x + 0.1f, col.bounds.center.y), Vector3.right * 1f);
+                Debug.DrawRay(new Vector2(col.bounds.max.x + 0.1f, col.bounds.center.y), Vector2.right * 0.5f, Color.red);
+                Debug.DrawRay(new Vector2(col.bounds.min.x - 0.1f, col.bounds.center.y), Vector2.left * 0.5f, Color.red);
 
-                if (rightRayHit)
+                if (rightRayHit.collider != null || leftRayHit.collider != null)
                 {
                     Debug.Log("hit");
-                    if (rightRayHit.collider.GetComponent<boxEffector>() != false)
+                    if (rightRayHit.collider != null && rightRayHit.collider.GetComponent<boxEffector>() != false)
                     {
-                        Debug.Log("FoundBox");
+                        Debug.Log("FoundRightBox");
                         boxEffector box = rightRayHit.collider.GetComponent<boxEffector>();
+                        connectedBox = box;
+                        box.FixedToPlayer(this);
+                    }
+                    else if (leftRayHit.collider != null && leftRayHit.collider.GetComponent<boxEffector>() != false)
+                    {
+                        Debug.Log("FoundLeftBox");
+                        boxEffector box = leftRayHit.collider.GetComponent<boxEffector>();
                         connectedBox = box;
                         box.FixedToPlayer(this);
                     }
@@ -309,7 +328,6 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
         connectedBox.DetachFromPlayer();
-        //maxSpeed = 10 ;
     }
 }
 
