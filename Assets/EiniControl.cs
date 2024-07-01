@@ -7,7 +7,7 @@ public class EiniControl : PlayerMovement
 {
     public override void Parameters()
     {
-        groundDistance = 0.4f;
+        groundDistance = 0.001f;
         sprintSpeed = 25f;
         maxSpeed = 15f;
         acceleration = 15f;

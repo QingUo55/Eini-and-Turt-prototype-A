@@ -97,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
 
     public virtual void Parameters()
     {
-        groundDistance = 0.4f;
+        groundDistance = 0.001f;
         sprintSpeed = 10f;
         maxSpeed = 10f;
         acceleration = 10f;

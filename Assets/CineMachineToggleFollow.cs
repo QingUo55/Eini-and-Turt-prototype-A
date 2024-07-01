@@ -7,24 +7,23 @@ public class CineMachineToggleFollow : MonoBehaviour
     public CinemachineVirtualCamera vcCamera;
 
     public GameObject Eini;
+    public GameObject Turt;
     private bool followed;
 
     private void Start()
     {
-        followed = false;
+        followed = true;
     }
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.E) && followed == false)
+        if(followed && GameHandler.Instance.ActiveCharacter == Character.Eini)
         {
             vcCamera.Follow = Eini.transform;
-            followed = true;
         }
-        else if(Input.GetKeyUp(KeyCode.E) && followed == true)
+        if (followed && GameHandler.Instance.ActiveCharacter == Character.Turt)
         {
-            vcCamera.Follow = null;
-            followed= false;
+            vcCamera.Follow = Turt.transform;
         }
     }
 }

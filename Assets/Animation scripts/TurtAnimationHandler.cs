@@ -1,13 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundEffector : MonoBehaviour
+public class TurtAnimationHandler : MonoBehaviour
 {
-    public GroundType GroundType;
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -19,11 +15,4 @@ public class GroundEffector : MonoBehaviour
     {
         
     }
-}
-
-public enum GroundType
-{
-    mud = 0,
-    ice = 1,
-
 }
